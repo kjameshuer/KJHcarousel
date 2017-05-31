@@ -42,10 +42,10 @@ ___
  Element used as "previous" button (default: '<')
 
  **indicatorActive** : *boolean*
- Determines whether an indicator is shown that represents the "count down" time between slides
+ Determines whether an indicator is shown that represents the "count down" time between slides (default: false)
 
  **afterMove** : *function*
- Callback function after the carousel has finshed transitioning to the next slide
+ Callback function after the carousel has finished transitioning to the next slide
 
  **beforeMove** : *function*
  Callback function before the carousel transitions to the next slide
@@ -65,6 +65,6 @@ Move backward one slide in carousel
 
  **resize()**
  Forces the execution of onResize
- 
+
  **setActiveChild(number)**
  Sets the active slide to the number provided if valid. 0 = first child;
