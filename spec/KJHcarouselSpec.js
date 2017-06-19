@@ -339,12 +339,6 @@ describe('KJHcarousel', function () {
       })
     })
 
-    describe('toggleMoving', function () {
-
-    })
-    describe('resize', function () {
-
-    })
   })
 
 })
