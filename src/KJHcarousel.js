@@ -10,21 +10,28 @@
 
     // set up properties for KJHcarousel
     KJHcarousel.init = function (element, args) {
+
+        if (elementDoesNotExist(element)) throw 'Parent element does not exist';
+        if (alreadyACarousel(element)) throw 'Carousel already exists in this element';
+        if (elementHasNoChildren(element)) throw 'Parent element has no children to place in carousel';
+        
+
         var self = this;
+        var argsExist = (args === undefined) ? false : true;
         //args
-        self.clickable = args.clickable || false;
-        self.initialFunction = (isExpected(args.init, ['function'], 'init')) ? args.init : undefined;
-        self.beforeMove = (isExpected(args.beforeMove, ['function'], 'beforeMove')) ? args.beforeMove : undefined;
-        self.afterMove = (isExpected(args.afterMove, ['function'], 'afterMove')) ? args.afterMove : undefined;
-        self.onResize = (isExpected(args.onResize, ['function'], 'onResize')) ? args.onResize : undefined;
-        self.changeSpeed = (isExpected(args.changeSpeed, ['string','number'], 'changeSpeed')) ? parseInt(args.changeSpeed) : 300;
-        self.customPrev = (isExpected(args.customPrev, ['string', 'object'], 'customPrev')) ? args.customPrev : undefined;
-        self.customNext = (isExpected(args.customNext, ['string', 'object'], 'customPrev')) ? args.customNext : undefined;
-        self.autoDelay = (isExpected(args.autoDelay, ['string','number'], 'autoDelay')) ? parseInt(args.autoDelay) : 4000;
-        self.autoPlay = args.autoPlay || false;
+        self.clickable = (argsExist && args.clickable !== undefined) ? args.clickable : false;
+        self.initialFunction = (argsExist && isExpected(args.init, ['function'], 'init')) ? args.init : undefined;
+        self.beforeMove = (argsExist && isExpected(args.beforeMove, ['function'], 'beforeMove')) ? args.beforeMove : undefined;
+        self.afterMove = (argsExist &&isExpected(args.afterMove, ['function'], 'afterMove')) ? args.afterMove : undefined;
+        self.onResize = (argsExist && isExpected(args.onResize, ['function'], 'onResize')) ? args.onResize : undefined;
+        self.changeSpeed = (argsExist && isExpected(args.changeSpeed, ['string','number'], 'changeSpeed')) ? parseInt(args.changeSpeed) : 300;
+        self.customPrev = (argsExist && isExpected(args.customPrev, ['string', 'object'], 'customPrev')) ? args.customPrev : undefined;
+        self.customNext = (argsExist && isExpected(args.customNext, ['string', 'object'], 'customPrev')) ? args.customNext : undefined;
+        self.autoDelay = (argsExist && isExpected(args.autoDelay, ['string','number'], 'autoDelay')) ? parseInt(args.autoDelay) : 4000;
+        self.autoPlay = (argsExist && args.autoPlay !== undefined) ? args.autoPlay : false;
         self.autoInterval;
         self.timeIndicator;
-        self.indicatorActive = args.indicatorOn || false;
+        self.indicatorActive = (argsExist && args.indicatorOn !== undefined) ? args.indicatorOn : false;
         self.outer = $(element);
         self.children = $(createChildren(self.outer));
         self.childLength = self.children.length - 1;
@@ -146,6 +153,21 @@
 
     //private helper functions 
 
+    function alreadyACarousel(el){
+        
+      if ($(el).find('>').attr('id') === 'KJHcarousel-wrapper') return true
+      return false;
+    }
+
+    function elementHasNoChildren(el){
+       if ($(el).children().length === 0) return true;
+       return false;
+    }
+
+    function elementDoesNotExist(el){
+        if (el === undefined || el === null) return true;
+        return false
+    }
 
     function startIndicator(self) {
         self.timeIndicator
