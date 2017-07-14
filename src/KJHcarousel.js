@@ -227,7 +227,7 @@
     }
     function addParentCss(holder, children) {
         holder.css({
-            "position": 'absolute',
+            "position": 'relative',
             "max-width": '100%',
             'width' : '100%',
             'top': 0,
@@ -403,7 +403,7 @@
         children.each(function (i, val) {
 
             var innerWidth = $(val).width();
-
+            
             allWidth = allWidth + outerWidth;
             $(val).width(innerWidth);
 
